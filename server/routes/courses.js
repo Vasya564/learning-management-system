@@ -1,37 +1,26 @@
 const express = require('express')
-const Course = require('../models/courseModel')
+const {
+    getCourses,
+    getCourse,
+    createCourse,
+    deleteCourse,
+    updateCourse
+} = require('../controllers/courseController')
 
 const router = express.Router()
 
 // GET all courses
-router.get('/', (req, res) => {
-    res.json({msg: 'GET all courses'})
-})
+router.get('/', getCourses)
 
 // GET a single course
-router.get('/:id', (req, res) => {
-    res.json({msg: 'GET a single course'})
-})
+router.get('/:id', getCourse)
 
 // POST a new course
-router.post('/', async (req, res) => {
-    const {title, specialization, teacher, students, status} = req.body
-
-    try {
-        const course = await Course.create({title, specialization, teacher, students, status})
-        res.status(200).json(course)
-    } catch (error){
-        res.status(400).json({error: error.message})
-    }
-})
+router.post('/', createCourse)
 
 // DELETE a course
-router.delete('/:id', (req, res) => {
-    res.json({msg: 'DELETE a course'})
-})
+router.delete('/:id', deleteCourse)
 
 // UPDATE a course
-router.patch('/:id', (req, res) => {
-    res.json({msg: 'UPDATE a course'})
-})
+router.patch('/:id', updateCourse)
 module.exports = router
