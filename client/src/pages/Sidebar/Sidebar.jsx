@@ -1,4 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
+import { BsHouseDoor, BsJournals } from 'react-icons/bs'
 import './Sidebar.scss'
 
 const Sidebar = () => {
@@ -12,8 +13,14 @@ const Sidebar = () => {
                 <hr className='profile__line'/>
                 <nav>
                     <ul className='nav__list'>
-                        <Link to={``}><li>Головна</li></Link>
-                        <Link to={`grades`}><li>Успішність</li></Link>
+                        <Link to={``}>
+                            <BsHouseDoor /> 
+                            <li>Головна</li>
+                        </Link>
+                        <Link to={`grades`}>
+                            <BsJournals />
+                            <li>Успішність</li>
+                        </Link>
                     </ul>
                 </nav>
             </aside>
