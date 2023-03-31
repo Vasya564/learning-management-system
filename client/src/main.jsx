@@ -9,10 +9,10 @@ import {
 import Sidebar from './pages/Sidebar/Sidebar';
 import Error from './pages/Error/Error';
 import Home from './pages/Home/Home';
+import Grades from './pages/Grades/Grades';
 
 // import global styles
 import './global.css'
-
 
 const router = createBrowserRouter([
   {
@@ -23,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path: "grades",
+        element: <Grades />,
       },
     ],
   },
