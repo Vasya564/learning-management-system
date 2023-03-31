@@ -1,0 +1,13 @@
+@use '../../variables.scss';
+
+.error__wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: variables.$background-color;
+    height: 100%;
+}
+.error__mssg{
+    margin-left: 1rem;
+    font-size: 3rem;
+}
