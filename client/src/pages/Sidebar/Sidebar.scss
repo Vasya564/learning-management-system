@@ -22,7 +22,7 @@ aside{
         width: $size;
         height: $size;
         border-radius: $size * 0.5;
-        background-color: variables.$secondary-color;
+        background-color: variables.$background-color;
     }
     &__cred{
         margin-top: 1rem;
@@ -46,14 +46,24 @@ aside{
         display: flex;
         align-items: center;
         text-decoration: none;
-        color: black;
+        color: white;
         padding: 10px 15px;
         margin-bottom: 0.5rem;
-        background-color: variables.$background-color;
         border-radius: 5px;
         font-weight: 600;
+        transition: all .3s;
+        &.active{
+            color: black;
+            background-color: variables.$background-color;
+        }
     }
     svg{
         margin-right: 10px;
     }
+}
+
+.content{ 
+    height: 100%;
+    padding: 2rem;
+    background-color: variables.$background-color;
 }
