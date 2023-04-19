@@ -5,11 +5,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+// import components
+import Sidebar from './components/Sidebar/Sidebar';
+
 // import pages
-import Sidebar from './pages/Sidebar/Sidebar';
 import Error from './pages/Error/Error';
 import Home from './pages/Home/Home';
 import Grades from './pages/Grades/Grades';
+import CreateCourse from './pages/CreateCourse/CreateCourse';
 
 // import global styles
 import './global.css'
@@ -28,6 +31,10 @@ const router = createBrowserRouter([
         path: "grades",
         element: <Grades />,
       },
+      {
+        path: "create-course",
+        element: <CreateCourse />,
+      }
     ],
   },
 ]);

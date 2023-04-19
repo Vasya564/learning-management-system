@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 // components
 import CourseCard from '../../components/CourseCard/CourseCard';
+import { NavLink } from 'react-router-dom';
 
 const Home = () => {
     const [courses, setCourses] = useState(null);
@@ -40,6 +41,7 @@ const Home = () => {
             {/* Page header with filter */}
             <header className='content__header'>
                 <h1>Мої курси</h1>
+                <NavLink to="create-course">Створити курс</NavLink>
                 <select 
                     value={filterValue} 
                     onChange={(e) => setFilterValue(e.target.value)}
