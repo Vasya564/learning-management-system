@@ -28,21 +28,21 @@ const userSchema = new Schema({
 // static create new user
 userSchema.statics.createUser = async function(fullname, role, email, password) {
 
-    if(!fullname || !role || !email || !password){
+    if (!fullname || !role || !email || !password) {
         throw Error('Всі поля повинні бути заповнені')
     }
 
-    if(!validator.isEmail(email)){
+    if (!validator.isEmail(email)) {
         throw Error('Пошта введена некоректно')
     }
 
-    if(!validator.isStrongPassword(password)){
+    if (!validator.isStrongPassword(password)) {
         throw Error('Пароль недостатньо сильний')
     }
 
     const exists = await this.findOne({ email })
 
-    if(exists) {
+    if (exists) {
         throw Error('Ця пошта вже використовується')
     }
 
@@ -50,6 +50,28 @@ userSchema.statics.createUser = async function(fullname, role, email, password) 
     const hash = await bcrypt.hash(password, salt)
 
     const user = await this.create({ fullname, role, email, password: hash})
+
+    return user
+}
+
+// static login
+userSchema.statics.login = async function(email, password) {
+
+    if (!email || !password) {
+        throw Error('Всі поля повинні бути заповнені')
+    }
+
+    const user = await this.findOne({ email })
+
+    if (!user) {
+        throw Error('Неправильні дані для входу')
+    }
+
+    const match = await bcrypt.compare(password, user.password)
+
+    if (!match) {
+        throw Error('Неправильні дані для входу')
+    }
 
     return user
 }
