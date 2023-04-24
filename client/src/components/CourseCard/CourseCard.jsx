@@ -27,7 +27,7 @@ const CourseCard = ({ course }) => {
             </div>
             <div className='content__course__main'>
                 <div className='content__course__header'>
-                    <div>
+                    <div className='content__course__header--text'>
                         <h3>{course.title}</h3>
                         <p>{course.specialization}</p>
                     </div>

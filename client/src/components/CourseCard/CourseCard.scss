@@ -44,6 +44,7 @@
     &__header{
         @extend %flex-center-spaceBetween;
         button{
+            align-self: flex-start;
             height: 40px;
             width: 70px;
             font-size: 0.75rem;
@@ -61,12 +62,16 @@
         }
         h3{
             font-size: 1.125rem;
+            line-height: 1;
         }
         p{
             font-size: 0.875rem;
             color: #646464;
-            margin-top: -5px;
+            margin-top: -2px;
         }
+    }
+    &__header--text{
+        flex-basis: 70%;
     }
     &__button{
         position: relative;
