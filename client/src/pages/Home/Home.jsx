@@ -25,13 +25,21 @@ const Home = () => {
 
     useEffect(() => {
         if (courses){
-            const newFilteredCourses = courses.filter((course) => {
-                if (filterValue === "") {
-                    return true;
-                } else {
-                    return course.status === parseInt(filterValue);
-                }
-            });
+            const newFilteredCourses = courses
+                .filter((course) => {
+                    if (filterValue === "") {
+                        return true;
+                    } else {
+                        return course.status === parseInt(filterValue);
+                    }
+                })
+                .sort((a, b) => {
+                    if (a.status === b.status) {
+                      return a.title.localeCompare(b.title);
+                    } else {
+                      return a.status - b.status;
+                    }
+                  });
             setFilteredCourses(newFilteredCourses);
         }
     }, [courses, filterValue])

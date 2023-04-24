@@ -3,7 +3,6 @@
 // ======== Layout Styles ======== //
 .content__header{
     display: flex;
-    // justify-content: space-between;
     align-items: center;
     h1{
         margin-right: auto;
@@ -17,7 +16,6 @@
         text-decoration: none;
         color: white;
         border-radius: 5px;
-        // border: 2px solid variables.$green-color;
     }
     select{
         padding: 0.25rem;
@@ -34,11 +32,8 @@
 }
 
 .content__courses{
-    // display: flex;
-    // flex-wrap: wrap;
-    // gap: 1.5rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1rem;
-    padding: 2rem 0;
+    padding: 2rem 0 1rem 0;
 }
