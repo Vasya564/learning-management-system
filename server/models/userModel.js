@@ -14,6 +14,12 @@ const userSchema = new Schema({
         enum: ['студент', 'викладач', 'адміністратор'],
         required: true
     },
+    group: {
+        type: String,
+        required: function() {
+          return this.role === 'студент';
+        }
+    },
     email: {
         type: String,
         required: true,
