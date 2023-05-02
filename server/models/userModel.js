@@ -11,13 +11,13 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['студент', 'викладач', 'адміністратор'],
+        enum: ['student', 'teacher', 'admin'],
         required: true
     },
     group: {
         type: String,
         required: function() {
-          return this.role === 'студент';
+          return this.role === 'student';
         }
     },
     email: {
@@ -32,7 +32,7 @@ const userSchema = new Schema({
 })
 
 // static create new user
-userSchema.statics.createUser = async function(fullname, role, email, password) {
+userSchema.statics.createUser = async function(fullname, role, group, email, password) {
 
     if (!fullname || !role || !email || !password) {
         throw Error('Всі поля повинні бути заповнені')
@@ -55,7 +55,7 @@ userSchema.statics.createUser = async function(fullname, role, email, password) 
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ fullname, role, email, password: hash})
+    const user = await this.create({ fullname, role, group, email, password: hash})
 
     return user
 }
