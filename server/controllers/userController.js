@@ -15,7 +15,9 @@ const loginUser = async (req, res) => {
         // create a token
         const token = createToken(user._id)
 
-        res.status(200).json({email, token})
+        const userName = user.fullname
+
+        res.status(200).json({email, userName, token})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -23,10 +25,10 @@ const loginUser = async (req, res) => {
 
 // create new user
 const createUser = async (req, res) => {
-    const {fullname, role, email, password} = req.body
+    const {fullname, role, group, email, password} = req.body
 
     try {
-        const user = await User.createUser(fullname, role, email, password)
+        const user = await User.createUser(fullname, role, group, email, password)
 
         res.status(200).json({email, user})
     } catch (error) {

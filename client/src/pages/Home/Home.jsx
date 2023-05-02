@@ -1,5 +1,6 @@
 import './Home.scss'
 import { useEffect, useState } from 'react';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 // components
 import CourseCard from '../../components/CourseCard/CourseCard';
@@ -10,17 +11,23 @@ const Home = () => {
     const [filterValue, setFilterValue] = useState("");
     const [filteredCourses, setFilteredCourses] = useState([]);
 
+    const { user } = useAuthContext()
+
     useEffect(() => {
         const fetchCourses = async () => {
-            const response = await fetch('http://localhost:4000/api/courses')
+            const response = await fetch('http://localhost:4000/api/courses', {
+                headers: {'Authorization': `Bearer ${user.token}`},
+            })
             const json = await response.json()
 
             if (response.ok) {
                 setCourses(json)
             }
         }
-
-        fetchCourses()
+        
+        if(user){
+            fetchCourses()
+        }
     }, [])
 
     useEffect(() => {
@@ -49,7 +56,7 @@ const Home = () => {
             {/* Page header with filter */}
             <header className='content__header'>
                 <h1>Мої курси</h1>
-                <NavLink to="create-course">Створити курс</NavLink>
+                <NavLink to="/create-course" replace>Створити курс</NavLink>
                 <select 
                     value={filterValue} 
                     onChange={(e) => setFilterValue(e.target.value)}

@@ -31,6 +31,7 @@ export const useLogin = () => {
       // update loading state
       setIsLoading(false)
     }
+    return response
   }
 
   return { login, isLoading, error }

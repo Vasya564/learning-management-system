@@ -1,5 +1,6 @@
 import './CreateCourse.scss'
 import { useRef, useState } from 'react';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 import SelectStudents from '../../components/SelectStudents/SelectStudents';
 
@@ -10,6 +11,8 @@ const CreateCourse = () => {
     const [students, setStudents] = useState([]);
     const [status, setStatus] = useState(0);
     const [error, setError] = useState(null);
+
+    const { user } = useAuthContext()
 
     const handleSelectOptions = (values) => {
         setStudents(values);
@@ -38,7 +41,8 @@ const CreateCourse = () => {
             method: 'POST',
             body: JSON.stringify(course),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         })
 
