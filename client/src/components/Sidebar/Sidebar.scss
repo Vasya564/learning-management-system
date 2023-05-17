@@ -40,6 +40,9 @@ aside{
         background-color: variables.$secondary-color;
         border: 0;
     }
+    &__link{
+        text-decoration: none;
+    }
 }
 
 // ======== Navigation Styles ======== //
