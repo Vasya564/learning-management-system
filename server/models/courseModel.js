@@ -24,7 +24,7 @@ const courseSchema = new Schema({
         required: true
     },
     resources: {
-        type: Object
+        type: Array
     }
 })
 
