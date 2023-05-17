@@ -8,10 +8,12 @@ import Sidebar from './components/Sidebar/Sidebar';
 // import pages
 import Error from './pages/Error/Error';
 import Home from './pages/Home/Home';
-import Grades from './pages/Grades/Grades';
+import Users from './pages/Users/Users';
 import CreateCourse from './pages/CreateCourse/CreateCourse';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
+import CourseDetails from "./pages/CourseDetails/CourseDetails";
+import Profile from "./pages/Profile/Profile";
 
 // import global styles
 import './global.css'
@@ -35,8 +37,8 @@ const App = () => {
               element: appLoading ? (<div>1</div>) : user ? <Home /> : <Navigate to="/login"/>,
             },
             {
-              path: "grades",
-              element: appLoading ? (<div>1</div>) : user ? <Grades /> : <Navigate to="/login"/>,
+              path: "users",
+              element: appLoading ? (<div>1</div>) : user ? <Users /> : <Navigate to="/login"/>,
             },
             {
               path: "create-course",
@@ -45,6 +47,14 @@ const App = () => {
             {
               path: "signup",
               element: appLoading ? (<div></div>) : user ? <Signup /> : <Navigate to="/login"/>,
+            },
+            {
+              path: "course/:id",
+              element: appLoading ? (<div></div>) : user ? <CourseDetails /> : <Navigate to="/login"/>,
+            },
+            {
+              path: "profile/:id",
+              element: appLoading ? (<div></div>) : user ? <Profile /> : <Navigate to="/login"/>,
             }
           ],
         },

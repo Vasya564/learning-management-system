@@ -40,6 +40,9 @@ const Home = () => {
                         return course.status === parseInt(filterValue);
                     }
                 })
+                .filter((course) => {
+                    return course.students.includes(user.email);
+                })
                 .sort((a, b) => {
                     if (a.status === b.status) {
                       return a.title.localeCompare(b.title);
@@ -49,7 +52,7 @@ const Home = () => {
                   });
             setFilteredCourses(newFilteredCourses);
         }
-    }, [courses, filterValue])
+    }, [courses, filterValue, user.email])
     
     return (
         <> 
