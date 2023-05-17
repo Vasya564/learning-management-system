@@ -1,5 +1,6 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { BsHouseDoor, BsJournals } from 'react-icons/bs'
+import { NavLink, Outlet, Link, useNavigate } from 'react-router-dom';
+import { BsHouseDoor } from 'react-icons/bs'
+import { FiUsers } from 'react-icons/fi'
 import { ImExit } from 'react-icons/im'
 import './Sidebar.scss'
 import { useLogout } from '../../hooks/useLogout';
@@ -20,10 +21,12 @@ const Sidebar = () => {
         <main>
             <aside>
                 {/* User profile section */}
+                {user && <Link to={`profile/${user._id}`} className='profile__link'>
                 <div className="profile">
                     <div className='profile__photo'></div>
                     {user && (<p className='profile__cred'>{user.userName}</p>)}
                 </div>
+                </Link>}
                 <hr className='profile__line'/>
                 {/* Navigation links */}
                 <nav>
@@ -32,9 +35,9 @@ const Sidebar = () => {
                             <BsHouseDoor /> 
                             <li>Головна</li>
                         </NavLink>
-                        <NavLink to="grades">
-                            <BsJournals />
-                            <li>Успішність</li>
+                        <NavLink to="users">
+                            <FiUsers />
+                            <li>Користувачі</li>
                         </NavLink>
                         {user && (
                             <button className='nav-list__button' onClick={handleClick}><ImExit />Вийти</button>
