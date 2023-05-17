@@ -1,0 +1,45 @@
+@use '../../variables.scss';
+
+.details-container{
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-gap: 1rem;
+    margin-top: 2rem;
+}
+.details-block{
+    padding: 1rem;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 5px;
+    background-color: variables.$secondary-color;
+    a{
+        display: block;
+    }
+    &:not(:first-child){
+        margin-top: 1.5rem;
+    }
+}
+.details-info{
+    max-height: 200px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 5px;
+    background-color: variables.$secondary-color;
+}
+
+.details-teacher{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    &__photo{
+        width: 100px;
+        height: 100px;
+        background-color: variables.$background-color;
+        border-radius: 50%;
+    }
+    &__desc{
+        margin-top: 0.625rem;
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+}

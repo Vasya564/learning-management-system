@@ -1,5 +1,6 @@
 import './CourseCard.scss'
 import { BsFillChatTextFill } from 'react-icons/bs'
+import { Link } from 'react-router-dom';
 
 const CourseCard = ({ course }) => {
     // Translating number status to text and applying appropriate style colors
@@ -31,7 +32,7 @@ const CourseCard = ({ course }) => {
                         <h3>{course.title}</h3>
                         <p>{course.specialization}</p>
                     </div>
-                    <button>Перейти до курсу</button>
+                    <Link className='content__course__header--link' to={`course/${course._id}`}>Перейти до курсу</Link>
                 </div>
                 <div className='content__course__footer'>
                     <hr />
