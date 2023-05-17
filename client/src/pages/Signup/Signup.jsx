@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
 import { useAuthContext } from "../../hooks/useAuthContext"
+import { useNavigate } from "react-router-dom";
 import './Signup.scss'
 
 const Signup = () => {
@@ -11,6 +12,8 @@ const Signup = () => {
     const [password, setPassword] = useState('');
 
     const { signup, isLoading, error } = useSignup()
+
+    const navigate = useNavigate()
 
     const { user } = useAuthContext()
 
@@ -36,6 +39,7 @@ const Signup = () => {
             setGroup('')
             setEmail('')
             setPassword('')
+            navigate('/users')
         } 
     }
 
@@ -87,7 +91,7 @@ const Signup = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <button className="signup-form__button" disabled={isLoading}>Signup</button>
+                <button className="signup-form__button" disabled={isLoading}>Створити</button>
             </form>
             {error && <div className="signup-form__error">{error}</div>}
         </div>

@@ -1,0 +1,36 @@
+@use '../../variables.scss';
+
+.content__users{
+    margin-top: 2rem;
+    border-radius: 5px;
+    background-color: variables.$secondary-color;
+}
+
+.users__labels, .user{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    & > div{
+        flex: 1;
+        text-align: center;
+    }
+}
+
+.users__labels{
+    border-bottom: 2px solid rgb(216, 216, 216);
+}
+
+.users__info{
+    display: flex;
+    flex-direction: column;
+}
+
+.user__photo{
+    display: block;
+    height: 40px;
+    width: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    background-color: variables.$background-color;
+}
