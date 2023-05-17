@@ -1,5 +1,5 @@
 import './CreateCourse.scss'
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 import SelectStudents from '../../components/SelectStudents/SelectStudents';
@@ -11,8 +11,43 @@ const CreateCourse = () => {
     const [students, setStudents] = useState([]);
     const [status, setStatus] = useState(0);
     const [error, setError] = useState(null);
+    const [users, setUsers] = useState(null);
+    const [options, setOptions] = useState([]);
 
     const { user } = useAuthContext()
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const response = await fetch('http://localhost:4000/api/user', {
+                headers: {'Authorization': `Bearer ${user.token}`},
+            })
+            const json = await response.json()
+
+            if (response.ok) {
+                setUsers(json)
+            }
+            const options = [];
+
+            json.forEach((user) => {
+            const { group, email, fullname } = user;
+
+            if (group) {
+                const groupIndex = options.findIndex((option) => option.group === group);
+
+                if (groupIndex === -1) {
+                options.push({ group, students: [{ email, fullname }] });
+                } else {
+                options[groupIndex].students.push({ email, fullname });
+                }
+            }
+            });
+            setOptions(options)
+        }
+        
+        if(user){
+            fetchUsers()
+        }
+    }, [])
 
     const handleSelectOptions = (values) => {
         setStudents(values);
@@ -20,16 +55,6 @@ const CreateCourse = () => {
 
     const studentsRef = useRef(null)
   
-    const options = [
-      {
-        group: '4CS-21',
-        students: ['Максим', 'Василь'] 
-      },
-      {
-        group: '4CS-41',
-        students: ['Христина', 'Яна', 'Михайло', 'Ірина']
-      }
-    ];
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -90,9 +115,11 @@ const CreateCourse = () => {
                             onChange={(e) => setTeacher(e.target.value)}
                             >
                             <option hidden>Виберіть викладача</option>
-                            <option>Andriy Shevchenko</option>
-                            <option>Jane Ukrainka</option>
-                            <option>T Hack</option>
+                            {users && users.map((user) => {
+                                if (user.role === 'teacher') {
+                                    return <option key={user._id}>{user.fullname}</option>;
+                                }
+                            })}
                         </select>
                         <label className='create-course__label'>Статус курсу:</label>
                         <select

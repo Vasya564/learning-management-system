@@ -24,7 +24,7 @@ const SelectStudents = forwardRef(({ options, onSelect}, ref) => {
       if (isChecked) {
         const checkObject = (prev) => ({
           ...prev,
-          [groupName]: options.find((option) => option.group === groupName).students
+          [groupName]: options.find((option) => option.group === groupName).students.map((student) => student.email)
         })
         setCheckedItems(checkObject);
         onSelect(checkObject)
@@ -82,18 +82,18 @@ const SelectStudents = forwardRef(({ options, onSelect}, ref) => {
             </label>
           {option.students.map((student) => {
             return (
-              <div className='checkbox-group__item' key={student}>
-                <label className={`checkbox-group__label ${groupCheckedItems.includes(student) ? 'checked': ''}`}>
+              <div className='checkbox-group__item' key={student.email}>
+                <label className={`checkbox-group__label ${groupCheckedItems.includes(student.email) ? 'checked': ''}`}>
                   <input
                     className='checkbox-group__input'
                     type="checkbox"
-                    value={student}
-                    checked={groupCheckedItems.includes(student)}
+                    value={student.email}
+                    checked={groupCheckedItems.includes(student.email)}
                     data-group={groupName}
                     onChange={handleSelect}
                   />
-                  <span className='checkbox-group__icon'>{groupCheckedItems.includes(student) && <GoCheck size={11}/>}</span>
-                  <span className='checkbox-group__student'>{student}</span>
+                  <span className='checkbox-group__icon'>{groupCheckedItems.includes(student.email) && <GoCheck size={11}/>}</span>
+                  <span className='checkbox-group__student'>{student.fullname}</span>
                 </label>
               </div>
               )
