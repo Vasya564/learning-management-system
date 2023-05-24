@@ -14,6 +14,7 @@ import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import CourseDetails from "./pages/CourseDetails/CourseDetails";
 import Profile from "./pages/Profile/Profile";
+import EditUser from "./pages/EditUser/EditUser";
 
 // import global styles
 import './global.css'
@@ -55,6 +56,10 @@ const App = () => {
             {
               path: "profile/:id",
               element: appLoading ? (<div></div>) : user ? <Profile /> : <Navigate to="/login"/>,
+            },
+            {
+              path: "edit/:id",
+              element: appLoading ? (<div></div>) : user ? <EditUser /> : <Navigate to="/login"/>,
             }
           ],
         },

@@ -37,8 +37,6 @@ const CourseCard = ({ course }) => {
                 <div className='content__course__footer'>
                     <hr />
                     <div className='content__course__teacher'>
-                        {/* <img /> */}
-                        <div></div>
                         <p>{course.teacher}</p>
                     </div>
                 </div>
