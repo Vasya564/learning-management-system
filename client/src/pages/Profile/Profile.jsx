@@ -28,7 +28,7 @@ const Profile = () => {
         <div className="center-container">
             {profile && 
                 <div className="profile-card">
-                    <p className="profile-card__photo"></p>
+                    <p className="profile-card__photo"><img src={`data:${profile.photo.contentType};base64,${profile.photo.data}`} /></p>
                     <p className="profile-card__name">Повне ім’я: {profile.fullname}</p>
                     <p className="profile-card__email">Пошта: {profile.email}</p>
                     <p className="profile-card__group">Група: {profile.group}</p>

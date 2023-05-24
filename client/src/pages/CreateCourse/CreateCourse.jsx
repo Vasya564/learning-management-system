@@ -1,6 +1,7 @@
 import './CreateCourse.scss'
 import { useRef, useState, useEffect } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { useNavigate } from "react-router-dom";
 
 import SelectStudents from '../../components/SelectStudents/SelectStudents';
 
@@ -13,6 +14,8 @@ const CreateCourse = () => {
     const [error, setError] = useState(null);
     const [users, setUsers] = useState(null);
     const [options, setOptions] = useState([]);
+
+    const navigate = useNavigate()
 
     const { user } = useAuthContext()
 
@@ -82,6 +85,7 @@ const CreateCourse = () => {
             setStatus(0)
             setError(null)
             studentsRef.current.updateChildState()
+            navigate('/')
         }
         else{
             setError(json.error)

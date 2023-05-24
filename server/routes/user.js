@@ -1,21 +1,37 @@
 const express = require('express')
 const requireAuth = require('../middleware/requireAuth')
+const multer = require('multer');
 
 // controller functions
-const { loginUser, createUser, getUsers, getUser } = require('../controllers/userController')
+const { 
+    loginUser, 
+    createUser, 
+    getUsers, 
+    getUser,
+    updateUser, 
+    deleteUser } = require('../controllers/userController')
 
 const router = express.Router()
 
-// all users route
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// GET all users
 router.get('/', requireAuth, getUsers)
 
-// user route
+// GET specific user
 router.get('/:id', requireAuth, getUser)
+
+// DELETE user
+router.delete('/:id', requireAuth, deleteUser)
+
+// UPDATE user
+router.patch('/:id', upload.single('photo'), requireAuth, updateUser)
 
 // login route
 router.post('/login', loginUser)
 
 // create new user route
-router.post('/create-user', requireAuth, createUser)
+router.post('/create-user', upload.single('photo'), requireAuth, createUser)
 
 module.exports = router

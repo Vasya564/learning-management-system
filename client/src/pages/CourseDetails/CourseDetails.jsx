@@ -19,7 +19,6 @@ const CourseDetails = () => {
                 setCourse(json)
             }
         }
-        
         if(user){
             fetchCourses()
         }
@@ -47,7 +46,6 @@ const CourseDetails = () => {
                         </div>
                         <div className="details-info">
                             <div className="details-teacher">
-                                <div className="details-teacher__photo"></div>
                                 <div className="details-teacher__desc">{course.teacher}</div>
                             </div>
                         </div>

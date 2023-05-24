@@ -2,49 +2,6 @@
 
 .signup-container{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     height: 100%;
-}
-
-.signup-form{
-    width: 300px;
-    padding: 1rem 2rem;
-    background-color: variables.$secondary-color;
-    border-radius: 5px;
-    &__title{
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    &__input, &__select{
-        display: block;
-        width: 100%;
-        padding: 10px 15px;
-        border-radius: 3px;
-        border: 1px solid rgb(71, 71, 71);
-    }
-    &__input, &__select{
-        margin-top: 0.8125rem;
-    }
-    &__button{
-        display: block;
-        margin: 1rem auto 0 auto;
-        padding: 5px 10px;
-        color: variables.$green-color;
-        border: 1px solid variables.$green-color;
-        border-radius: 3px;
-        background-color: transparent;
-        &:hover{
-            cursor: pointer;
-        }
-    }
-    &__error{
-        max-width: 300px;
-        text-align: center;
-        margin-top: 0.625rem;
-        padding: 2px 5px;
-        border: 1px solid variables.$red-color;
-        border-radius: 3px;
-        color: variables.$red-color;
-    }
 }

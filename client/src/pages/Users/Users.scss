@@ -16,21 +16,49 @@
     }
 }
 
+.user{
+    border-bottom: 2px solid rgb(230, 230, 230);
+}
+
 .users__labels{
-    border-bottom: 2px solid rgb(216, 216, 216);
+    color: white;
+    background-color: variables.$primary-color;
+    border-radius: 5px 5px 0 0;
 }
 
 .users__info{
     display: flex;
     flex-direction: column;
+    height: 560px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+      
+    &::-webkit-scrollbar-thumb {
+        background-color: #888;
+    }
+      
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+    }
 }
 
 .user__photo{
     display: block;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     margin-left: auto;
     margin-right: auto;
     border-radius: 50%;
     background-color: variables.$background-color;
+    img{
+        border-radius: 50%;
+        height: 100%;
+        width: 100%;
+    }
 }
