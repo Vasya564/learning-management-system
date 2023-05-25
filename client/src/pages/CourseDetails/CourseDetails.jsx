@@ -1,28 +1,54 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { CiCirclePlus } from 'react-icons/ci'
+import { BiTrash } from 'react-icons/bi'
 import './CourseDetails.scss'
+import FileIcon from "../../components/FileIcon/FileIcon";
 
 const CourseDetails = () => {
     const { id } = useParams();
     const [course, setCourse] = useState(null)
     const { user } = useAuthContext();
+    const navigate = useNavigate();
+
+    const fetchCourse = async () => {
+        const response = await fetch(`http://localhost:4000/api/courses/${id}`, {
+            headers: {'Authorization': `Bearer ${user.token}`},
+        })
+        const json = await response.json()
+
+        if (response.ok) {
+            setCourse(json)
+        }
+    }
 
     useEffect(() => {
-        const fetchCourses = async () => {
-            const response = await fetch(`http://localhost:4000/api/courses/${id}`, {
-                headers: {'Authorization': `Bearer ${user.token}`},
-            })
-            const json = await response.json()
-
-            if (response.ok) {
-                setCourse(json)
-            }
-        }
         if(user){
-            fetchCourses()
+            fetchCourse()
         }
     }, [id])
+
+    const deleteBlock = async (courseId, blockId) => {
+        try {
+          const response = await fetch(`http://localhost:4000/api/courses/resources/${courseId}/${blockId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+          });
+      
+          if (response.ok) {
+            fetchCourse()
+          } else {
+            // Handle the error case
+            const errorData = await response.json();
+            console.error(errorData.error);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
 
     return (
         <div>
@@ -31,18 +57,34 @@ const CourseDetails = () => {
                     <h1>{course.title}</h1>
                     <div className="details-container">
                         <div className="details-resourses">
-                            <div className="details-block">
-                                <h2>Topic №1 - Lorem ipsum dolor sit amet</h2>
-                                <a href="#">Lorem ipsum dolor sit amet</a>
-                                <a href="#">Lorem ipsum dolor sit amet</a>
-                                <a href="#">Lorem ipsum dolor sit amet</a>
-                            </div>
-                            <div className="details-block">
-                                <h2>Topic №2 - Lorem ipsum dolor sit amet</h2>
-                                <a href="#">Lorem ipsum dolor sit amet</a>
-                                <a href="#">Lorem ipsum dolor sit amet</a>
-                                <a href="#">Lorem ipsum dolor sit amet</a>
-                            </div>
+                            {course.resources.map((block, index) => (
+                                <div className="details-block" key={index}>
+                                    <div className="details-block__title">
+                                        <h2>{block.topic}</h2>
+                                        <button
+                                            title="Видалити блок" 
+                                            onClick={() => deleteBlock(id, index)}><BiTrash size={24}/></button>
+                                    </div>
+                                    <div className="details-block__files">
+                                    {block.files.map((file, fileIndex) => (
+                                        <div className="details-block__file" key={fileIndex}>
+                                            <FileIcon size={24} file={file}/>
+                                            <a  href={`http://localhost:4000${file.path}`} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" >
+                                                {/* {file.originalName.split('.').slice(0, -1).join('.')} */}
+                                                {decodeURIComponent(file.originalName.split('.').slice(0, -1).join('.'))}
+                                            </a>
+                                        </div>
+                                    ))}
+                                    </div>
+                                </div>
+                            ))}
+                            {!course.resources.length && navigate(`/add-block/${id}`)
+                                // <div className="details-block">
+                                //     <h2>Додайте новий блок за допомогою кнопки нижче</h2>        
+                                // </div>
+                            }
                         </div>
                         <div className="details-info">
                             <div className="details-teacher">
@@ -50,6 +92,14 @@ const CourseDetails = () => {
                             </div>
                         </div>
                     </div>
+                    <button 
+                        className="details-add-button" 
+                        onClick={() => navigate(`/add-block/${id}`)}>
+                            <span>
+                                <CiCirclePlus size={24} />
+                                <p>Додати новий блок</p>
+                            </span>
+                    </button>
                 </div>
             )}
         </div>
