@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEdit } from "../../hooks/useEdit";
 import { useParams } from "react-router-dom";
 import UserForm from "../../components/UserForm/UserForm";
+import FlexColumn from "../../components/FlexColumn/FlexColumn";
 
 const EditUser = () => {
     const { id } = useParams();
@@ -25,10 +26,10 @@ const EditUser = () => {
     }
 
     return (
-        <div className="signup-container">
+        <FlexColumn>
             <h1>Редагування користувача</h1>
             <UserForm handleSubmit={handleSubmit} isLoading={isLoading} error={error}/>
-        </div>
+        </FlexColumn>
     );
 }
  

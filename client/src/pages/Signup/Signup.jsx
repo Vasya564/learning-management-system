@@ -1,8 +1,8 @@
 import { useSignup } from "../../hooks/useSignup";
 import { useAuthContext } from "../../hooks/useAuthContext"
 import { useNavigate } from "react-router-dom";
-import './Signup.scss'
 import UserForm from "../../components/UserForm/UserForm";
+import FlexColumn from "../../components/FlexColumn/FlexColumn";
 
 const Signup = () => {
     
@@ -25,10 +25,10 @@ const Signup = () => {
     }
 
     return (
-        <div className="signup-container">
+        <FlexColumn>
             <h1>Створення нового користувача</h1>
             <UserForm handleSubmit={handleSubmit} isLoading={isLoading} error={error}/>
-        </div>
+        </FlexColumn>
     );
 }
  
