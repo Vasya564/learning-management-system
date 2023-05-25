@@ -26,12 +26,22 @@ const Profile = () => {
     }, [id])
     return (
         <div className="center-container">
-            {profile && 
-                <div className="profile-card">
+            {profile &&
+                <div className="profile-card"> 
                     <p className="profile-card__photo"><img src={`data:${profile.photo.contentType};base64,${profile.photo.data}`} /></p>
-                    <p className="profile-card__name">Повне ім’я: {profile.fullname}</p>
-                    <p className="profile-card__email">Пошта: {profile.email}</p>
-                    <p className="profile-card__group">Група: {profile.group}</p>
+                    <p className="profile-card__name">{profile.fullname}</p>
+                    <div className="profile-info">
+                        <div className="profile-block">
+                            <p className="profile-block__label">Пошта</p>
+                            <p className="profile-block__email">{profile.email}</p>
+                        </div>
+                        {profile.group &&
+                        <div className="profile-block">
+                            <p className="profile-block__label">Група</p>
+                            <p className="profile-block__group">{profile.group}</p>
+                        </div>
+                        }
+                    </div>
                 </div>
             }
         </div>
