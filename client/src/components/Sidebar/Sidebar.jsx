@@ -11,23 +11,34 @@ const Sidebar = () => {
     const { logout } = useLogout()
     const [photo, setPhoto] = useState(null)
     const { user } = useAuthContext()
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchUser = async () => {
-            const response = await fetch(`http://localhost:4000/api/user/${user._id}`, {
-                headers: {'Authorization': `Bearer ${user.token}`},
-            })
-            const json = await response.json()
-            const { photo } = json
-
-            if (response.ok) {
-                setPhoto(photo)
+            const storedPhoto = localStorage.getItem('userPhoto'); // Retrieve photo from local storage
+      
+            if (storedPhoto) {
+              setPhoto(JSON.parse(storedPhoto));
+              setLoading(false);
+            } else {
+              const response = await fetch(`http://localhost:4000/api/user/${user._id}`, {
+                headers: { 'Authorization': `Bearer ${user.token}` },
+              });
+              const json = await response.json();
+              const { photo } = json;
+      
+              if (response.ok) {
+                setPhoto(photo);
+                localStorage.setItem('userPhoto', JSON.stringify(photo)); // Store photo in local storage
+              }
+      
+              setLoading(false);
             }
-        }
+          };
         if(user){
             fetchUser()
         }
-    }, [])
+    }, [user])
 
     const navigate = useNavigate()
 
@@ -42,9 +53,15 @@ const Sidebar = () => {
                 {/* User profile section */}
                 {user && <Link to={`profile/${user._id}`} className='profile__link'>
                 <div className="profile">
-                    <div className='profile__photo'>
-                        {photo && <img src={`data:${photo.contentType};base64,${photo.data}`}></img>}
-                    </div>
+                  <div className='profile__photo'>
+                  {loading ? (
+                    <div></div>
+                  ) : photo ? (
+                    <img src={`data:${photo.contentType};base64,${photo.data}`} alt='User Profile' />
+                  ) : (
+                    <div>No photo available</div>
+                  )}
+                </div>
                     {user && (<p className='profile__cred'>{user.userName}</p>)}
                 </div>
                 </Link>}

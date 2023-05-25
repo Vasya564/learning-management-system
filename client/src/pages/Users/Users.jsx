@@ -4,6 +4,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import { BiEditAlt, BiTrash } from 'react-icons/bi'
 import './Users.scss'
+import SkeletonUser from "../../components/skeletons/SkeletonUser";
 
 const Users = () => {
     const [users, setUsers] = useState(null)
@@ -75,14 +76,25 @@ const Users = () => {
                             </div>
                             <div className="user__name">{user.fullname}</div>
                             <div className="user__email">{user.email}</div>
-                            <div className="user__group">{user.group}</div>
-                            <div className="user__group">{roleTranslations[user.role]}</div>
-                            <div className="users__action">
-                                <button title="Редагувати користувача" onClick={() => navigate(`/edit/` +user._id)}><BiEditAlt /></button>
-                                <button title="Видалити користувача" onClick={() => handleDeleteUser(user._id)}><BiTrash /></button>
+                            <div className="user__group">{user.group ? user.group : '–'}</div>
+                            <div className="user__role">{roleTranslations[user.role]}</div>
+                            <div className="user__action">
+                                <button
+                                    className="user__button" 
+                                    title="Редагувати користувача" 
+                                    onClick={() => navigate(`/edit/` +user._id)}><BiEditAlt /></button>
+                                <button
+                                    className="user__button" 
+                                    title="Видалити користувача" 
+                                    onClick={() => handleDeleteUser(user._id)}><BiTrash /></button>
                             </div>
                         </div>
                         )) 
+                    }
+                    { !users &&
+                        [...Array(5).keys()].map(i => {
+                            return <SkeletonUser key={i} />
+                        })
                     }
                 </div>
             </section>
