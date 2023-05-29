@@ -50,11 +50,10 @@
     }
     &__error{
         max-width: 300px;
-        text-align: center;
+        margin: 0 auto;
         margin-top: 0.625rem;
-        padding: 2px 5px;
-        border: 1px solid variables.$red-color;
-        border-radius: 3px;
+        font-size: 1.125rem;
+        font-weight: 800;
         color: variables.$red-color;
     }
 }

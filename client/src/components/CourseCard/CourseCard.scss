@@ -79,6 +79,19 @@
     &__button{
         position: relative;
     }
+    &__actions{
+        display: flex;
+        align-items: center;
+        button{
+            padding: 0 5px;
+            background-color: transparent;
+            color: white;
+            border: none;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
     &__footer{
         hr{
             border: 1px solid rgb(182, 182, 182);

@@ -5,8 +5,7 @@ import UserForm from "../../components/UserForm/UserForm";
 import FlexColumn from "../../components/FlexColumn/FlexColumn";
 
 const Signup = () => {
-    
-    const { signup, isLoading, error } = useSignup()
+    const { signup, isLoading, error, emptyFields } = useSignup()
     const navigate = useNavigate()
     const { user } = useAuthContext()
 
@@ -27,7 +26,7 @@ const Signup = () => {
     return (
         <FlexColumn>
             <h1>Створення нового користувача</h1>
-            <UserForm handleSubmit={handleSubmit} isLoading={isLoading} error={error}/>
+            <UserForm handleSubmit={handleSubmit} isLoading={isLoading} error={error} emptyFields={emptyFields}/>
         </FlexColumn>
     );
 }

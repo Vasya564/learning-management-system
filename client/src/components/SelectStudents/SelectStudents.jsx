@@ -1,8 +1,8 @@
 import './SelectStudents.scss'
 import { GoCheck } from 'react-icons/go'
-import { forwardRef, useState, useImperativeHandle } from "react";
+import { forwardRef, useState, useImperativeHandle, useEffect } from "react";
 
-const SelectStudents = forwardRef(({ options, onSelect}, ref) => {
+const SelectStudents = forwardRef(({ options, onSelect, students, emptyFields}, ref) => {
     const [isCheckedAll, setIsCheckedAll] = useState(false);
     const [checkedItems, setCheckedItems] = useState([]);
 
@@ -13,6 +13,29 @@ const SelectStudents = forwardRef(({ options, onSelect}, ref) => {
         setCheckedItems([]);
       }
     }));
+
+    useEffect(() => {
+      if(students){
+        const initialCheckedItems = {};
+    
+        options.forEach((option) => {
+          const groupName = option.group;
+          const groupStudents = option.students.map((student) => student.email);
+          const intersectedStudents = groupStudents.filter((student) =>
+            students.includes(student)
+          );
+      
+          initialCheckedItems[groupName] = intersectedStudents;
+      
+          if (intersectedStudents.length === groupStudents.length) {
+            setIsCheckedAll((prev) => ({ ...prev, [groupName]: true }));
+          }
+        });
+      
+        setCheckedItems(initialCheckedItems);
+        onSelect(initialCheckedItems)
+      }
+    }, [options, students]);
 
     // Handle if checked all values in group 
     const handleSelectAll = (event) => {
@@ -60,7 +83,7 @@ const SelectStudents = forwardRef(({ options, onSelect}, ref) => {
     };
   
     return (
-      <div className='checkbox-group'>
+      <div className={`checkbox-group ${emptyFields.includes('students') ? 'error' : ''}`}>
       {options.map((option) => {
         
       const groupName = option.group;

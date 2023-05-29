@@ -13,18 +13,18 @@ const Home = () => {
 
     const { user } = useAuthContext()
 
-    useEffect(() => {
-        const fetchCourses = async () => {
-            const response = await fetch('http://localhost:4000/api/courses', {
-                headers: {'Authorization': `Bearer ${user.token}`},
-            })
-            const json = await response.json()
+    const fetchCourses = async () => {
+        const response = await fetch('http://localhost:4000/api/courses', {
+            headers: {'Authorization': `Bearer ${user.token}`},
+        })
+        const json = await response.json()
 
-            if (response.ok) {
-                setCourses(json)
-            }
+        if (response.ok) {
+            setCourses(json)
         }
-        
+    }
+
+    useEffect(() => {
         if(user){
             fetchCourses()
         }
@@ -41,7 +41,15 @@ const Home = () => {
                     }
                 })
                 .filter((course) => {
-                    return course.students.includes(user.email);
+                    if(user.userRole === 'student'){
+                        return course.students.includes(user.email);
+                    }
+                    else if(user.userRole === 'teacher'){
+                        return course.teacher.includes(user.userName);
+                    }
+                    else{
+                        return course
+                    }
                 })
                 .sort((a, b) => {
                     if (a.status === b.status) {
@@ -58,8 +66,12 @@ const Home = () => {
         <> 
             {/* Page header with filter */}
             <header className='content__header'>
-                <h1>Мої курси</h1>
-                <NavLink to="/create-course" replace>Створити курс</NavLink>
+                {user && user.userRole === 'admin' ? <h1>Всі курси</h1> : <h1>Мої курси</h1>}
+                {user && user.userRole !== 'student' && (
+                    <NavLink to="/create-course" replace>
+                        Створити курс
+                    </NavLink>
+                )}
                 <select 
                     value={filterValue} 
                     onChange={(e) => setFilterValue(e.target.value)}
@@ -73,7 +85,7 @@ const Home = () => {
             {/* Courses wrapper and courses */}
             <section className='content__courses'>
                 {filteredCourses.map((course) => (
-                    <CourseCard key={course._id} course={course}/>
+                    <CourseCard key={course._id} course={course} fetchCourses={fetchCourses}/>
                 ))}
             </section>
         </>

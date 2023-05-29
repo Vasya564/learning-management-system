@@ -3,7 +3,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useParams } from "react-router-dom";
 import './UserForm.scss'
 
-const UserForm = ({ handleSubmit, isLoading, error }) => {
+const UserForm = ({ handleSubmit, isLoading, error, emptyFields }) => {
     const { id } = useParams();
     const [isEditMode, setIsEditMode] = useState(!!id);
     const [initialFields, setInitialFields] = useState({});
@@ -72,15 +72,6 @@ const UserForm = ({ handleSubmit, isLoading, error }) => {
         }
         else{
             handleSubmit({ fullname, role, group, email, password, photo });
-        
-            // setFullname('')
-            // setRole('')
-            // setGroup('')
-            // setEmail('')
-            // setPassword('')
-            // setPhoto(null);
-            // setPhotoPreview(null);
-            // fileInputRef.current.value = null;
         }
       };
 
@@ -114,18 +105,19 @@ const UserForm = ({ handleSubmit, isLoading, error }) => {
                     accept="image/*"
                     ref={fileInputRef}
                     name="photo"
+                    required={!isEditMode}
                     onChange={handlePhotoChange}
                 />
 
                 <input
-                    className="user-form__input" 
+                    className={`user-form__input ${emptyFields && emptyFields.includes('fullname') ? 'error' : ''}`} 
                     type="text"
                     value={fullname}
                     placeholder="Повне ім’я"
                     onChange={(e) => setFullname(e.target.value)}
                 />
                 <select
-                    className="user-form__select"
+                    className={`user-form__select ${emptyFields && emptyFields.includes('role') ? 'error' : ''}`}
                     value={role}
                     onChange={handleRoleChange} 
                 >
@@ -146,14 +138,14 @@ const UserForm = ({ handleSubmit, isLoading, error }) => {
                     </>
                 }
                 <input
-                    className="user-form__input" 
+                    className={`user-form__input ${emptyFields && emptyFields.includes('email') ? 'error' : ''}`} 
                     type="email"
                     value={email}
                     placeholder="Пошта"
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 {!isEditMode && <input
-                    className="user-form__input" 
+                    className={`user-form__input ${emptyFields && emptyFields.includes('password') ? 'error' : ''}`} 
                     type="password"
                     value={password}
                     placeholder="Пароль"

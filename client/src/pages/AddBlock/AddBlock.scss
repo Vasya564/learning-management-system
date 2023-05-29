@@ -1,13 +1,19 @@
 @use '../../variables.scss';
 
 .add-block{
+    &__container{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
     &__form {
-    padding: 1rem;
-    width: 300px;
-    margin: auto 0;
-    align-self: center;
-    background-color: variables.$secondary-color;
-    border-radius: 3px;
+        padding: 1rem;
+        width: 330px;
+        align-self: center;
+        background-color: variables.$secondary-color;
+        border-radius: 3px;
     }
     &__input{
         display: block;
@@ -22,7 +28,7 @@
         margin: 0.8125rem 0;
         text-align: center;
         border-radius: 3px;
-        border: 1px solid rgb(100, 100, 100);
+        border: 2px dashed rgb(100, 100, 100);
         background-color: variables.$background-color;
         font-weight: 800;
         &:hover{
@@ -30,9 +36,13 @@
         }
     }
     &__selected{
-        padding: 0;
+        padding: 0 10px;
         width: 100%;
         list-style: none;
+        font-size: 0.875rem;
+        li{
+          font-weight: 600;  
+        }
     }
     &__placeholder{
         display: flex;
@@ -41,7 +51,7 @@
     }
     &__button{
         display: block;
-        margin: 1rem auto 0 auto;
+        margin-top: 0.5rem;
         padding: 5px 10px;
         color: variables.$green-color;
         border: 1px solid variables.$green-color;
@@ -51,4 +61,27 @@
             cursor: pointer;
         }
     }
+    &__hint{
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #646464;
+    }
+    &__error{
+        margin-top: 0.5rem;
+        font-size: 1.125rem;
+        font-weight: 800;
+        color: variables.$red-color;
+    }
+}
+
+.oversize-error{
+    font-size: 0.875rem;
+    color: variables.$red-color;
+}
+
+.error{
+    border: 2px solid variables.$red-color;
+}
+.error-dashed{
+    border: 2px dashed variables.$red-color;
 }

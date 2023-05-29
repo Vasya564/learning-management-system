@@ -16,6 +16,7 @@ import CourseDetails from "./pages/CourseDetails/CourseDetails";
 import Profile from "./pages/Profile/Profile";
 import EditUser from "./pages/EditUser/EditUser";
 import AddBlock from "./pages/AddBlock/AddBlock";
+import EditCourse from "./pages/EditCourse/EditCourse";
 
 // import global styles
 import './global.css'
@@ -65,6 +66,10 @@ const App = () => {
             {
               path: "add-block/:id",
               element: appLoading ? (<div></div>) : user ? <AddBlock /> : <Navigate to="/login"/>,
+            },
+            {
+              path: "edit-course/:id",
+              element: appLoading ? (<div></div>) : user ? <EditCourse /> : <Navigate to="/login"/>,
             }
           ],
         },
