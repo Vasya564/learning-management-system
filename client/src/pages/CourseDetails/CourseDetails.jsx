@@ -54,37 +54,51 @@ const CourseDetails = () => {
         <div>
             {course && (
                 <div>
-                    <h1>{course.title}</h1>
+                    <div className="details-header">
+                        <h1>{course.title}</h1>
+                        <p>{course.specialization}</p>
+                    </div>
                     <div className="details-container">
                         <div className="details-resourses">
-                            {course.resources.map((block, index) => (
+                        {!course.resources.length ? (
+                            user && user.userRole !== 'student' ? (
+                                navigate(`/add-block/${id}`)
+                            ) : (
+                                <div className="details-block">
+                                    <h2>Наразі в цьому курсі немає тем</h2>        
+                                </div>
+                            )
+                            ) : (
+                            course.resources.map((block, index) => (
                                 <div className="details-block" key={index}>
                                     <div className="details-block__title">
-                                        <h2>{block.topic}</h2>
+                                    <h2>{block.topic}</h2>
+                                    {user && user.userRole !== 'student' &&
                                         <button
                                             title="Видалити блок" 
-                                            onClick={() => deleteBlock(id, index)}><BiTrash size={24}/></button>
+                                            onClick={() => deleteBlock(id, index)}
+                                        >
+                                            <BiTrash size={24}/>
+                                        </button>
+                                    }
                                     </div>
                                     <div className="details-block__files">
                                     {block.files.map((file, fileIndex) => (
                                         <div className="details-block__file" key={fileIndex}>
-                                            <FileIcon size={24} file={file}/>
-                                            <a  href={`http://localhost:4000${file.path}`} 
-                                                target="_blank" 
-                                                rel="noopener noreferrer" >
-                                                {/* {file.originalName.split('.').slice(0, -1).join('.')} */}
-                                                {decodeURIComponent(file.originalName.split('.').slice(0, -1).join('.'))}
-                                            </a>
+                                        <FileIcon size={24} file={file}/>
+                                        <a
+                                            href={`http://localhost:4000${file.path}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {decodeURIComponent(file.originalName.split('.').slice(0, -1).join('.'))}
+                                        </a>
                                         </div>
                                     ))}
                                     </div>
                                 </div>
-                            ))}
-                            {!course.resources.length && navigate(`/add-block/${id}`)
-                                // <div className="details-block">
-                                //     <h2>Додайте новий блок за допомогою кнопки нижче</h2>        
-                                // </div>
-                            }
+                                ))
+                            )}
                         </div>
                         <div className="details-info">
                             <div className="details-teacher">
@@ -92,6 +106,7 @@ const CourseDetails = () => {
                             </div>
                         </div>
                     </div>
+                    {user && user.userRole !== 'student' && (
                     <button 
                         className="details-add-button" 
                         onClick={() => navigate(`/add-block/${id}`)}>
@@ -100,6 +115,7 @@ const CourseDetails = () => {
                                 <p>Додати новий блок</p>
                             </span>
                     </button>
+                    )}
                 </div>
             )}
         </div>

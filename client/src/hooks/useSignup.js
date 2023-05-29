@@ -3,6 +3,7 @@ import { useState } from 'react'
 export const useSignup = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(null)
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const signup = async (fullname, role, group, email, password, photo, token) => {
     setIsLoading(true)
@@ -28,6 +29,7 @@ export const useSignup = () => {
     if (!response.ok) {
       setIsLoading(false)
       setError(json.error)
+      setEmptyFields(json.emptyFields)
     }
     if (response.ok) {
       setIsLoading(false)
@@ -35,5 +37,5 @@ export const useSignup = () => {
     return response
   }
 
-  return { signup, isLoading, error }
+  return { signup, isLoading, error, emptyFields }
 }

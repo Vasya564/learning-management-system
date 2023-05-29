@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
+const checkEmptyFields =  require('../middleware/checkEmptyFields');
 
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.SECRET, {expiresIn: '3d'})
@@ -41,8 +42,9 @@ const loginUser = async (req, res) => {
         const token = createToken(user._id)
 
         const userName = user.fullname
+        const userRole = user.role
 
-        res.status(200).json({email, userName, _id: user._id, token})
+        res.status(200).json({email, userName, _id: user._id, userRole, token})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -51,7 +53,21 @@ const loginUser = async (req, res) => {
 // create new user
 const createUser = async (req, res) => {
     const {fullname, role, group, email, password} = req.body
-    const { buffer, mimetype } = req.file;
+    const { buffer, mimetype } = req.file || {};
+
+    const combinedData = {
+        fullname: fullname,
+        role: role,
+        group: group,
+        email: email,
+        password: password
+    }
+
+    const emptyFields = checkEmptyFields(combinedData)
+
+    if(emptyFields.length > 0){
+        return res.status(400).json({error: 'Всі поля повинні бути заповнені', emptyFields})
+    }
 
     try {
         const user = await User.createUser( fullname, role, group, email, password, buffer, mimetype)

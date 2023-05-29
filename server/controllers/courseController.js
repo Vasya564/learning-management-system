@@ -2,6 +2,7 @@ const Course = require('../models/courseModel')
 const mongoose = require('mongoose')
 const fs = require('fs');
 const path = require('path');
+const checkEmptyFields =  require('../middleware/checkEmptyFields');
 
 // get all courses
 const getCourses = async (req, res) => {
@@ -31,6 +32,12 @@ const getCourse = async (req, res) => {
 // create new course
 const createCourse = async (req, res) => {
     const {title, specialization, teacher, students, status} = req.body
+
+    const emptyFields = checkEmptyFields(req.body)
+
+    if(emptyFields.length > 0){
+      return res.status(400).json({error: 'Всі поля повинні бути заповнені', emptyFields})
+    }
 
     // add doc to db
     try {
@@ -79,6 +86,17 @@ const updateResources = async (req, res) => {
     const courseId = req.params.id;
     const topic = req.body.topic;
     const files = req.files;
+
+    const combinedData = {
+      topic: topic,
+      files: files
+    };
+
+    const emptyFields = checkEmptyFields(combinedData)
+
+    if(emptyFields.length > 0){
+      return res.status(400).json({error: 'Всі поля повинні бути заповнені', emptyFields})
+    }
 
     // Find the course by courseId in the database
     try {

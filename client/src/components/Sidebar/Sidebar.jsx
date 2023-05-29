@@ -73,10 +73,11 @@ const Sidebar = () => {
                             <BsHouseDoor /> 
                             <li>Головна</li>
                         </NavLink>
+                        {user && user.userRole === 'admin' && 
                         <NavLink to="users">
                             <FiUsers />
                             <li>Користувачі</li>
-                        </NavLink>
+                        </NavLink>}
                         {user && (
                             <button className='nav-list__button' onClick={handleClick}><ImExit />Вийти</button>
                         )}

@@ -1,8 +1,12 @@
 import './CourseCard.scss'
-import { BsFillChatTextFill } from 'react-icons/bs'
+import { BiEditAlt, BiTrash } from 'react-icons/bi'
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
-const CourseCard = ({ course }) => {
+const CourseCard = ({ course, fetchCourses }) => {
+    const { user } = useAuthContext()
+    const navigate = useNavigate()
     // Translating number status to text and applying appropriate style colors
     let statusText;
     let statusClass;
@@ -20,11 +24,30 @@ const CourseCard = ({ course }) => {
             statusClass = "content__course__status--repeat"
             break;
     }
+
+    const handleDeleteCourse = async (id) => {
+        const response = await fetch('http://localhost:4000/api/courses/' +id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+
+        if(response.ok){
+            fetchCourses()
+        }
+    }
     return (
         <div className='content__course'>
             <div className={statusClass}>
-                <BsFillChatTextFill />
                 <p>{statusText}</p>
+                {user && user.userRole !== 'student' && (
+                    <div className='content__course__actions'>
+                        <button onClick={() => navigate(`/edit-course/${course._id}`)}><BiEditAlt size={16} /></button>
+                        <button onClick={() => handleDeleteCourse(course._id)}><BiTrash size={16} /></button>
+                    </div>
+                )}
             </div>
             <div className='content__course__main'>
                 <div className='content__course__header'>

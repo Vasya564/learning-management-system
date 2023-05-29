@@ -64,4 +64,16 @@
             cursor: pointer;
         }
     }
+
+    &__error{
+        margin: 0.5rem 0;
+        text-align: center;
+        font-size: 1.125rem;
+        font-weight: 800;
+        color: variables.$red-color;
+    }
+}
+
+.error{
+    border: 1px solid variables.$red-color;
 }
