@@ -1,13 +1,6 @@
 @use '../../variables.scss';
 
 .add-block{
-    &__container{
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
     &__form {
         padding: 1rem;
         width: 330px;

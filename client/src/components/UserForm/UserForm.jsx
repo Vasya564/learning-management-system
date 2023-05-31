@@ -44,7 +44,7 @@ const UserForm = ({ handleSubmit, isLoading, error, emptyFields }) => {
         setRole(selectedRole);
 
         if (selectedRole !== 'student') {
-            setGroup('');
+            setGroup('-');
         }
     }
 

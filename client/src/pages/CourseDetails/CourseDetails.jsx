@@ -4,6 +4,8 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { CiCirclePlus } from 'react-icons/ci'
 import { BiTrash } from 'react-icons/bi'
 import './CourseDetails.scss'
+
+// components
 import FileIcon from "../../components/FileIcon/FileIcon";
 
 const CourseDetails = () => {
