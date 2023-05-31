@@ -1,9 +1,11 @@
 import { useAuthContext } from "../../hooks/useAuthContext"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEdit } from "../../hooks/useEdit";
-import { useParams } from "react-router-dom";
+
+// components
 import UserForm from "../../components/UserForm/UserForm";
 import FlexColumn from "../../components/FlexColumn/FlexColumn";
+import Header from "../../components/Header/Header";
 
 const EditUser = () => {
     const { id } = useParams();
@@ -12,12 +14,11 @@ const EditUser = () => {
     const { user } = useAuthContext()
 
     const handleSubmit = async (formFields) =>{
-        // const {fullname, role, group, email, password, photo} = formFields
-
+        
         if(!user){
             return
         }
-        // console.log(formFields)
+
         const response = await edit(formFields, id, user.token)
         
         if(response.ok){
@@ -27,7 +28,9 @@ const EditUser = () => {
 
     return (
         <FlexColumn>
-            <h1>Редагування користувача</h1>
+            <Header>
+                <h1>Редагування користувача</h1>
+            </Header>
             <UserForm handleSubmit={handleSubmit} isLoading={isLoading} error={error}/>
         </FlexColumn>
     );

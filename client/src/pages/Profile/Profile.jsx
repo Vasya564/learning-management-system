@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import './Profile.scss'
 
+// components
+import FlexColumnCenter from "../../components/FlexColumnCenter/FlexColumnCenter";
+
 const Profile = () => {
     const { id } = useParams();
     const [profile, setProfile] = useState(null)
@@ -25,7 +28,7 @@ const Profile = () => {
         }
     }, [id])
     return (
-        <div className="center-container">
+        <FlexColumnCenter>
             {profile &&
                 <div className="profile-card"> 
                     <p className="profile-card__photo"><img src={`data:${profile.photo.contentType};base64,${profile.photo.data}`} /></p>
@@ -44,7 +47,7 @@ const Profile = () => {
                     </div>
                 </div>
             }
-        </div>
+        </FlexColumnCenter>
     );
 }
  

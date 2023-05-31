@@ -1,0 +1,31 @@
+@use '../../variables.scss';
+
+.page-header{
+    display: flex;
+    align-items: center;
+    h1{
+        margin-right: auto;
+    }
+    a {
+        padding: 0.25rem;
+        font-size: 1rem;
+        font-weight: 600;
+        background-color: variables.$primary-color;
+        margin-right: 1rem;
+        text-decoration: none;
+        color: white;
+        border-radius: 5px;
+    }
+    select{
+        padding: 0.25rem;
+        font-weight: 600;
+        font-size: 1.25rem;
+        text-align: center;
+        border: 2px solid black;
+        border-radius: 5px;
+        background: transparent;
+        & option{
+            background: variables.$background-color;
+        }
+    }
+}

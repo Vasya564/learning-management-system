@@ -1,10 +1,11 @@
 import './Home.scss'
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { NavLink } from 'react-router-dom';
 
 // components
 import CourseCard from '../../components/CourseCard/CourseCard';
-import { NavLink } from 'react-router-dom';
+import Header from '../../components/Header/Header';
 
 const Home = () => {
     const [courses, setCourses] = useState(null);
@@ -65,7 +66,7 @@ const Home = () => {
     return (
         <> 
             {/* Page header with filter */}
-            <header className='content__header'>
+            <Header>
                 {user && user.userRole === 'admin' ? <h1>Всі курси</h1> : <h1>Мої курси</h1>}
                 {user && user.userRole !== 'student' && (
                     <NavLink to="/create-course" replace>
@@ -81,7 +82,7 @@ const Home = () => {
                     <option value="2">Завершені</option>
                     <option value="3">Повторний курс</option>
                 </select>
-            </header>
+            </Header>
             {/* Courses wrapper and courses */}
             <section className='content__courses'>
                 {filteredCourses.map((course) => (

@@ -1,8 +1,11 @@
 import { useSignup } from "../../hooks/useSignup";
 import { useAuthContext } from "../../hooks/useAuthContext"
 import { useNavigate } from "react-router-dom";
+
+// components
 import UserForm from "../../components/UserForm/UserForm";
 import FlexColumn from "../../components/FlexColumn/FlexColumn";
+import Header from "../../components/Header/Header";
 
 const Signup = () => {
     const { signup, isLoading, error, emptyFields } = useSignup()
@@ -15,7 +18,6 @@ const Signup = () => {
         if(!user){
             return
         }
-        // console.log(fullname, role, group, email, password, photo)
         const response = await signup(fullname, role, group, email, password, photo, user.token)
         
         if(response.ok){
@@ -25,7 +27,9 @@ const Signup = () => {
 
     return (
         <FlexColumn>
-            <h1>Створення нового користувача</h1>
+            <Header>
+                <h1>Створення нового користувача</h1>
+            </Header>
             <UserForm handleSubmit={handleSubmit} isLoading={isLoading} error={error} emptyFields={emptyFields}/>
         </FlexColumn>
     );

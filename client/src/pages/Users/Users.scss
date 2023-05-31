@@ -6,7 +6,7 @@
     background-color: variables.$secondary-color;
 }
 
-.users__labels, .user{
+.users__labels{
     display: flex;
     align-items: center;
     padding: 1rem;
@@ -14,42 +14,6 @@
         flex: 1;
         text-align: center;
     }
-}
-
-.user{
-    border-bottom: 2px solid rgb(230, 230, 230);
-    &__photo{
-        display: block;
-        height: 50px;
-        width: 50px;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 50%;
-        background-color: variables.$background-color;
-        img{
-            border-radius: 50%;
-            height: 100%;
-            width: 100%;
-        }
-    }
-    &__button{
-        padding: 5px 5px;
-        border: none;
-        border-radius: 50%;
-        background-color: variables.$background-color;
-        filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.25));
-        transition: all .3s;
-        &:hover{
-            cursor: pointer;
-            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-        }
-    }
-    &__button + &__button{
-        margin-left: 10px;
-    }
-}
-
-.users__labels{
     color: white;
     background-color: variables.$primary-color;
     border-radius: 5px 5px 0 0;

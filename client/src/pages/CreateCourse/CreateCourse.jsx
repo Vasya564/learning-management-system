@@ -4,6 +4,7 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from "react-router-dom";
 
 import SelectStudents from '../../components/SelectStudents/SelectStudents';
+import Header from '../../components/Header/Header';
 
 const CreateCourse = () => {
     const [title, setTitle] = useState('');
@@ -122,7 +123,9 @@ const CreateCourse = () => {
 
     return (
         <div className='create-course'>
-            <h1 className='create-course__title'>Створення курсу</h1>
+            <Header>
+                <h1>Створення курсу</h1>
+            </Header>
             <div className='create-course__form-container'>
                 <form id='course-form' className="create-course__form" onSubmit={handleSubmit}>
                     <div className='create-course__form-left'>

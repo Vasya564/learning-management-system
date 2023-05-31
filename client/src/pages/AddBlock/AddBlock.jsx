@@ -3,7 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { BiUpload } from 'react-icons/bi'
 import './AddBlock.scss'
+
+// components
 import FlexColumn from '../../components/FlexColumn/FlexColumn';
+import FlexColumnCenter from '../../components/FlexColumnCenter/FlexColumnCenter';
+import Header from '../../components/Header/Header';
 
 const AddBlock = () => {
     const { id } = useParams();
@@ -29,7 +33,7 @@ const AddBlock = () => {
         const extensionIndex = fileName.lastIndexOf('.');
         const name = fileName.substring(0, extensionIndex);
         const extension = fileName.substring(extensionIndex);
-        const truncatedName = name.substring(0, maxLength - 3); // Leave space for the ellipsis
+        const truncatedName = name.substring(0, maxLength - 3);
         
         return truncatedName + '...' + extension;
       };
@@ -98,8 +102,10 @@ const AddBlock = () => {
 
     return (
         <FlexColumn>
-        <h2>Додавання нового блоку до курсу</h2>
-        <div className='add-block__container'>
+        <Header>
+            <h1>Додавання нового блоку до курсу</h1>
+        </Header>
+        <FlexColumnCenter>
             <form className='add-block__form' id='add-block__form' onSubmit={handleSubmit} >
                 <input 
                     className={`add-block__input ${emptyFields.includes('topic') ? 'error' : ''}`} 
@@ -137,7 +143,7 @@ const AddBlock = () => {
             </form>
             {error && <div className='add-block__error'>{error}</div>}
             <button className='add-block__button' form="add-block__form">Додати</button>  
-        </div>
+        </FlexColumnCenter>
         </FlexColumn>
     );
 };

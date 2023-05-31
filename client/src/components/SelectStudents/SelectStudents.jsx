@@ -83,7 +83,7 @@ const SelectStudents = forwardRef(({ options, onSelect, students, emptyFields}, 
     };
   
     return (
-      <div className={`checkbox-group ${emptyFields.includes('students') ? 'error' : ''}`}>
+      <div className={`checkbox-group ${emptyFields && emptyFields.includes('students') ? 'error' : ''}`}>
       {options.map((option) => {
         
       const groupName = option.group;

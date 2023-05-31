@@ -1,21 +1,17 @@
-import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { useNavigate } from "react-router-dom";
-import { BiEditAlt, BiTrash } from 'react-icons/bi'
+import { useNavigate, NavLink } from "react-router-dom";
 import './Users.scss'
+
+// components
 import SkeletonUser from "../../components/skeletons/SkeletonUser";
+import UserCard from "../../components/UserCard/UserCard";
+import Header from "../../components/Header/Header";
 
 const Users = () => {
     const [users, setUsers] = useState(null)
     const { user } = useAuthContext();
     const navigate = useNavigate()
-
-    const roleTranslations = {
-        admin: 'Адміністратор',
-        student: 'Студент',
-        teacher: 'Викладач'
-      };
 
     const fetchUsers = async () => {
         const response = await fetch(`http://localhost:4000/api/user/`, {
@@ -37,6 +33,10 @@ const Users = () => {
         }
     }, [])
 
+    const handleEditUser = (id) => {
+        navigate(`/edit/${id}`)
+    }
+
     const handleDeleteUser = async (id) => {
         const response = await fetch('http://localhost:4000/api/user/' +id, {
             method: 'DELETE',
@@ -53,10 +53,10 @@ const Users = () => {
 
     return (
         <>
-            <header className='content__header'>
+            <Header>
                 <h1>Користувачі</h1>
                 <NavLink to="/signup" replace>Створити користувача</NavLink>
-            </header>
+            </Header>
             <section className="content__users">
                 <div className="users__labels">
                     <div className="users__labels--photo">Фото</div>
@@ -68,27 +68,12 @@ const Users = () => {
                 </div>
                 <div className="users__info">
                     { users && users.map((user) => (
-                        <div className="user" key={user._id}>
-                            <div>
-                                <div className="user__photo">
-                                    {user.photo && <img src={`data:${user.photo.contentType};base64,${user.photo.data}`} alt="User Photo" />}
-                                </div>
-                            </div>
-                            <div className="user__name">{user.fullname}</div>
-                            <div className="user__email">{user.email}</div>
-                            <div className="user__group">{user.group ? user.group : '–'}</div>
-                            <div className="user__role">{roleTranslations[user.role]}</div>
-                            <div className="user__action">
-                                <button
-                                    className="user__button" 
-                                    title="Редагувати користувача" 
-                                    onClick={() => navigate(`/edit/` +user._id)}><BiEditAlt /></button>
-                                <button
-                                    className="user__button" 
-                                    title="Видалити користувача" 
-                                    onClick={() => handleDeleteUser(user._id)}><BiTrash /></button>
-                            </div>
-                        </div>
+                        <UserCard
+                            key={user._id} 
+                            user={user}
+                            handleEditUser={handleEditUser}
+                            handleDeleteUser={handleDeleteUser}
+                        />
                         )) 
                     }
                     { !users &&

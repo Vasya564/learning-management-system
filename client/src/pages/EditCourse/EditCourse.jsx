@@ -3,7 +3,9 @@ import { useRef, useState, useEffect } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate, useParams } from "react-router-dom";
 
+// components
 import SelectStudents from '../../components/SelectStudents/SelectStudents';
+import Header from '../../components/Header/Header';
 
 const EditCourse = () => {
     const [initialFields, setInitialFields] = useState({})
@@ -143,7 +145,9 @@ const EditCourse = () => {
 
     return (
         <div className='create-course'>
-            <h1 className='create-course__title'>Редагування курсу</h1>
+            <Header>
+                <h1>Редагування курсу</h1>
+            </Header>
             <div className='create-course__form-container'>
                 <form id='course-form' className="create-course__form" onSubmit={handleSubmit}>
                     <div className='create-course__form-left'>

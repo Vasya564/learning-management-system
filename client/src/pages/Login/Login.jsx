@@ -3,6 +3,9 @@ import { useLogin } from "../../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import './Login.scss'
 
+// components
+import FlexColumnCenter from "../../components/FlexColumnCenter/FlexColumnCenter";
+
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -24,7 +27,7 @@ const Login = () => {
     }
 
     return (
-        <div className="login-container">
+        <FlexColumnCenter>
             <form className="login-form" onSubmit={handleSubmit}>
                 <h2 className="login-form__title">Вхід в систему VLE</h2>
                 <input
@@ -45,7 +48,7 @@ const Login = () => {
                 <button className="login-form__button" disabled={isLoading}>Увійти</button>
             </form>
             {error && <div className="login-form__error">{error}</div>}
-        </div>
+        </FlexColumnCenter>
     );
 }
  
