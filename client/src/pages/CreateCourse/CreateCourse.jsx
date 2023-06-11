@@ -42,7 +42,7 @@ const CreateCourse = () => {
             json.forEach((user) => {
             const { group, email, fullname } = user;
 
-            if (group) {
+            if (group && group !== '-') {
                 const groupIndex = options.findIndex((option) => option.group === group);
 
                 if (groupIndex === -1) {

@@ -122,7 +122,7 @@ const AddBlock = () => {
                                 <ul className='add-block__selected'>
                                     {files.map((file, index) => (
                                         <li key={index}>
-                                            <p>{truncateFileName(file.name, 38)}</p>
+                                            <p>{truncateFileName(file.name, 35)}</p>
                                             <p></p>
                                         </li>
                                     ))}
