@@ -3,8 +3,15 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const checkEmptyFields =  require('../middleware/checkEmptyFields');
 
-const createToken = (_id) => {
-    return jwt.sign({_id}, process.env.SECRET, {expiresIn: '3d'})
+const createToken = (user) => {
+    const userData = {
+        _id: user._id,
+        fullname: user.fullname,
+        role: user.role,
+        group: user.group,
+        email: user.email
+    }
+    return jwt.sign(userData, process.env.SECRET, {expiresIn: '3d'})
 }
 
 // get all users
@@ -39,12 +46,9 @@ const loginUser = async (req, res) => {
         const user = await User.login(email, password)
 
         // create a token
-        const token = createToken(user._id)
+        const token = createToken(user)
 
-        const userName = user.fullname
-        const userRole = user.role
-
-        res.status(200).json({email, userName, _id: user._id, userRole, token})
+        res.status(200).json(token)
     } catch (error) {
         res.status(400).json({error: error.message})
     }
