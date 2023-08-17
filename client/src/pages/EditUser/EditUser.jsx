@@ -11,7 +11,7 @@ const EditUser = () => {
     const { id } = useParams();
     const { edit, isLoading, error } = useEdit()
     const navigate = useNavigate()
-    const { user } = useAuthContext()
+    const { user, token } = useAuthContext()
 
     const handleSubmit = async (formFields) =>{
         
@@ -19,7 +19,7 @@ const EditUser = () => {
             return
         }
 
-        const response = await edit(formFields, id, user.token)
+        const response = await edit(formFields, id, token)
         
         if(response.ok){
             navigate('/users')

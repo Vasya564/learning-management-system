@@ -10,12 +10,12 @@ import Header from "../../components/Header/Header";
 
 const Users = () => {
     const [users, setUsers] = useState(null)
-    const { user } = useAuthContext();
+    const { user, token } = useAuthContext();
     const navigate = useNavigate()
 
     const fetchUsers = async () => {
         const response = await fetch(`http://localhost:4000/api/user/`, {
-            headers: {'Authorization': `Bearer ${user.token}`},
+            headers: {'Authorization': `Bearer ${token}`},
         })
         const json = await response.json()
 

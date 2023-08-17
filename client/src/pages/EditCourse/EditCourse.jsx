@@ -22,7 +22,7 @@ const EditCourse = () => {
 
     const navigate = useNavigate()
 
-    const { user } = useAuthContext()
+    const { user, token } = useAuthContext()
 
     function areObjectsNotEqual(obj1, obj2) {
         const keys1 = Object.keys(obj1);
@@ -44,7 +44,7 @@ const EditCourse = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             const response = await fetch('http://localhost:4000/api/user', {
-                headers: {'Authorization': `Bearer ${user.token}`},
+                headers: {'Authorization': `Bearer ${token}`},
             })
             const json = await response.json()
 
@@ -70,7 +70,7 @@ const EditCourse = () => {
         }
         const fetchCourse = async () => {
             const response = await fetch(`http://localhost:4000/api/courses/${id}`, {
-                headers: {'Authorization': `Bearer ${user.token}`},
+                headers: {'Authorization': `Bearer ${token}`},
             })
             const json = await response.json()
     
@@ -121,7 +121,7 @@ const EditCourse = () => {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user.token}`
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(updatedFields)
         })

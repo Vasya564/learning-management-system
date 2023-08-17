@@ -19,7 +19,7 @@ const CreateCourse = () => {
 
     const navigate = useNavigate()
 
-    const { user } = useAuthContext()
+    const { user, token } = useAuthContext()
 
     useEffect(() => {
         if(emptyFields.length === 0){
@@ -30,7 +30,7 @@ const CreateCourse = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             const response = await fetch('http://localhost:4000/api/user', {
-                headers: {'Authorization': `Bearer ${user.token}`},
+                headers: {'Authorization': `Bearer ${token}`},
             })
             const json = await response.json()
 
@@ -98,7 +98,7 @@ const CreateCourse = () => {
             body: JSON.stringify(course),
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user.token}`
+                'Authorization': `Bearer ${token}`
             }
         })
 

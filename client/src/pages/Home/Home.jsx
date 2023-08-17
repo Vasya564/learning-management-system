@@ -12,11 +12,11 @@ const Home = () => {
     const [filterValue, setFilterValue] = useState("");
     const [filteredCourses, setFilteredCourses] = useState([]);
 
-    const { user } = useAuthContext()
+    const { user, token } = useAuthContext()
 
     const fetchCourses = async () => {
         const response = await fetch('http://localhost:4000/api/courses', {
-            headers: {'Authorization': `Bearer ${user.token}`},
+            headers: {'Authorization': `Bearer ${token}`},
         })
         const json = await response.json()
 
