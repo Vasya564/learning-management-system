@@ -11,7 +11,7 @@ import Header from '../../components/Header/Header';
 
 const AddBlock = () => {
     const { id } = useParams();
-    const { user } = useAuthContext();
+    const { user, token } = useAuthContext();
     const [topic, setTopic] = useState('');
     const [files, setFiles] = useState([]);
     const [error, setError] = useState('');
@@ -85,7 +85,7 @@ const AddBlock = () => {
         const response = await fetch(`http://localhost:4000/api/courses/resources/${id}`, {
             method: 'PATCH',
             headers: {
-                'Authorization': `Bearer ${user.token}`
+                'Authorization': `Bearer ${token}`
             },
             body: formData,
         })

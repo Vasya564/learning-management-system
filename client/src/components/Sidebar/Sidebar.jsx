@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 const Sidebar = () => {
     const { logout } = useLogout()
     const [photo, setPhoto] = useState(null)
-    const { user } = useAuthContext()
+    const { user, token } = useAuthContext()
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -21,8 +21,9 @@ const Sidebar = () => {
               setPhoto(JSON.parse(storedPhoto));
               setLoading(false);
             } else {
+              console.log(token)
               const response = await fetch(`http://localhost:4000/api/user/${user._id}`, {
-                headers: { 'Authorization': `Bearer ${user.token}` },
+                headers: { 'Authorization': `Bearer ${token}` },
               });
               const json = await response.json();
               const { photo } = json;
@@ -62,7 +63,7 @@ const Sidebar = () => {
                     <div>No photo available</div>
                   )}
                 </div>
-                    {user && (<p className='profile__cred'>{user.userName}</p>)}
+                    {user && (<p className='profile__cred'>{user.fullname}</p>)}
                 </div>
                 </Link>}
                 <hr className='profile__line'/>
@@ -73,7 +74,7 @@ const Sidebar = () => {
                             <BsHouseDoor /> 
                             <li>Головна</li>
                         </NavLink>
-                        {user && user.userRole === 'admin' && 
+                        {user && user.role === 'admin' && 
                         <NavLink to="users">
                             <FiUsers />
                             <li>Користувачі</li>

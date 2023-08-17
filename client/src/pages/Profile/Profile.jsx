@@ -9,12 +9,12 @@ import FlexColumnCenter from "../../components/FlexColumnCenter/FlexColumnCenter
 const Profile = () => {
     const { id } = useParams();
     const [profile, setProfile] = useState(null)
-    const { user } = useAuthContext();
+    const { user, token } = useAuthContext();
 
     useEffect(() => {
         const fetchUser = async () => {
             const response = await fetch(`http://localhost:4000/api/user/${id}`, {
-                headers: {'Authorization': `Bearer ${user.token}`},
+                headers: {'Authorization': `Bearer ${token}`},
             })
             const json = await response.json()
 

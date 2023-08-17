@@ -11,12 +11,12 @@ import FileIcon from "../../components/FileIcon/FileIcon";
 const CourseDetails = () => {
     const { id } = useParams();
     const [course, setCourse] = useState(null)
-    const { user } = useAuthContext();
+    const { user, token } = useAuthContext();
     const navigate = useNavigate();
 
     const fetchCourse = async () => {
         const response = await fetch(`http://localhost:4000/api/courses/${id}`, {
-            headers: {'Authorization': `Bearer ${user.token}`},
+            headers: {'Authorization': `Bearer ${token}`},
         })
         const json = await response.json()
 
@@ -36,7 +36,7 @@ const CourseDetails = () => {
           const response = await fetch(`http://localhost:4000/api/courses/resources/${courseId}/${blockId}`, {
             method: 'DELETE',
             headers: {
-                'Authorization': `Bearer ${user.token}`
+                'Authorization': `Bearer ${token}`
             }
           });
       

@@ -10,7 +10,7 @@ import Header from "../../components/Header/Header";
 const Signup = () => {
     const { signup, isLoading, error, emptyFields } = useSignup()
     const navigate = useNavigate()
-    const { user } = useAuthContext()
+    const { user, token } = useAuthContext()
 
     const handleSubmit = async (formFields) =>{
         const {fullname, role, group, email, password, photo} = formFields
@@ -18,7 +18,7 @@ const Signup = () => {
         if(!user){
             return
         }
-        const response = await signup(fullname, role, group, email, password, photo, user.token)
+        const response = await signup(fullname, role, group, email, password, photo, token)
         
         if(response.ok){
             navigate('/users')

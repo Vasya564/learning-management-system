@@ -1,11 +1,14 @@
 import { createContext, useReducer, useEffect } from 'react'
+import jwt_decode from "jwt-decode";
 
 export const AuthContext = createContext()
 
 export const authReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN':
-      return { user: action.payload, isLoading: false }
+      const decodedToken = jwt_decode(action.payload)
+      const { exp, iat, ...userData} = decodedToken
+      return { user: userData, token: action.payload, isLoading: false }
     case 'LOGOUT':
       return { user: null, isLoading: false }
     case 'LOADING':
@@ -21,10 +24,12 @@ export const AuthContextProvider = ({ children }) => {
   })
 
   const handleStorageChange = () => {
-    const user = JSON.parse(localStorage.getItem('user'))
+    const userToken = JSON.parse(localStorage.getItem('user'))
 
-    if (user) {
-      dispatch({ type: 'LOGIN', payload: user }) 
+    if (userToken) {
+      const decodedToken = jwt_decode(userToken)
+      const { exp, iat, ...userData} = decodedToken
+      dispatch({ type: 'LOGIN', payload: {...userData, token: userToken} }) 
     } else {
       dispatch({ type: 'LOGOUT' })
     }
@@ -33,10 +38,10 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     dispatch({ type: 'LOADING' })
 
-    const user = JSON.parse(localStorage.getItem('user'))
+    const userToken = JSON.parse(localStorage.getItem('user'))
 
-    if (user) {
-      dispatch({ type: 'LOGIN', payload: user }) 
+    if (userToken) {
+      dispatch({ type: 'LOGIN', payload: userToken }) 
     }
 
     window.addEventListener('storage', handleStorageChange)
