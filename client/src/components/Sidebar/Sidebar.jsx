@@ -9,37 +9,8 @@ import { useEffect, useState } from 'react';
 
 const Sidebar = () => {
     const { logout } = useLogout()
-    const [photo, setPhoto] = useState(null)
     const { user, token } = useAuthContext()
     const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const storedPhoto = localStorage.getItem('userPhoto'); // Retrieve photo from local storage
-      
-            if (storedPhoto) {
-              setPhoto(JSON.parse(storedPhoto));
-              setLoading(false);
-            } else {
-              console.log(token)
-              const response = await fetch(`http://localhost:4000/api/user/${user._id}`, {
-                headers: { 'Authorization': `Bearer ${token}` },
-              });
-              const json = await response.json();
-              const { photo } = json;
-      
-              if (response.ok) {
-                setPhoto(photo);
-                localStorage.setItem('userPhoto', JSON.stringify(photo)); // Store photo in local storage
-              }
-      
-              setLoading(false);
-            }
-          };
-        if(user){
-            fetchUser()
-        }
-    }, [user])
 
     const navigate = useNavigate()
 
@@ -55,10 +26,9 @@ const Sidebar = () => {
                 {user && <Link to={`profile/${user._id}`} className='profile__link'>
                 <div className="profile">
                   <div className='profile__photo'>
-                  {loading ? (
-                    <div></div>
-                  ) : photo ? (
-                    <img src={`data:${photo.contentType};base64,${photo.data}`} alt='User Profile' />
+                  {user ? 
+                    (
+                    <img src={user.photo} alt='User Profile' />
                   ) : (
                     <div>No photo available</div>
                   )}

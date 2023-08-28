@@ -56,8 +56,8 @@
         margin-top: 0.625rem;
         padding: 2px 10px;
         background-color: transparent;
-        color: variables.$green-color;
-        border: 1px solid variables.$green-color;
+        color: variables.$accent-color;
+        border: 1px solid variables.$accent-color;
         border-radius: 5px;
         font-size: 1.125rem;
         &:hover{
@@ -70,10 +70,10 @@
         text-align: center;
         font-size: 1.125rem;
         font-weight: 800;
-        color: variables.$red-color;
+        color: variables.$accent-color;
     }
 }
 
 .error{
-    border: 1px solid variables.$red-color;
+    border: 1px solid variables.$accent-color;
 }

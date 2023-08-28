@@ -30,13 +30,13 @@ const userSchema = new Schema({
         required: true
     },
     photo: {
-        data: Buffer,
-        contentType: String
+        type: String,
+        required: true
     }
 })
 
 // static create new user
-userSchema.statics.createUser = async function(fullname, role, group, email, password, buffer, mimetype) {
+userSchema.statics.createUser = async function(fullname, role, group, email, password, photo) {
 
     if (!fullname || !role || !email || !password) {
         throw Error('Всі поля повинні бути заповнені')
@@ -65,10 +65,11 @@ userSchema.statics.createUser = async function(fullname, role, group, email, pas
         group,
         email,
         password: hash,
-        photo: {
-            data: buffer,
-            contentType: mimetype
-        }
+        photo
+        // photo: {
+        //     data: buffer,
+        //     contentType: mimetype
+        // }
     });
 
     return user

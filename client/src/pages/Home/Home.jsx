@@ -42,11 +42,11 @@ const Home = () => {
                     }
                 })
                 .filter((course) => {
-                    if(user.userRole === 'student'){
+                    if(user.role === 'student'){
                         return course.students.includes(user.email);
                     }
-                    else if(user.userRole === 'teacher'){
-                        return course.teacher.includes(user.userName);
+                    else if(user.role === 'teacher'){
+                        return course.teacher.includes(user.fullname);
                     }
                     else{
                         return course
@@ -67,8 +67,8 @@ const Home = () => {
         <> 
             {/* Page header with filter */}
             <Header>
-                {user && user.userRole === 'admin' ? <h1>Всі курси</h1> : <h1>Мої курси</h1>}
-                {user && user.userRole !== 'student' && (
+                {user && user.role === 'admin' ? <h1>Всі курси</h1> : <h1>Мої курси</h1>}
+                {user && user.role !== 'student' && (
                     <NavLink to="/create-course" replace>
                         Створити курс
                     </NavLink>
