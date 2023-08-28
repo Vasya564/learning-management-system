@@ -28,11 +28,11 @@
     }
     &__status--completed{
         @extend %status;
-        background-color: variables.$green-color;
+        background-color: variables.$accent-color;
     }
     &__status--repeat{
         @extend %status;
-        background-color: variables.$red-color;
+        background-color: variables.$accent-color;
     }
     &__main{
         height: 175px;

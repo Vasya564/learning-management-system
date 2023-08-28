@@ -40,8 +40,8 @@
         display: block;
         margin: 1rem auto 0 auto;
         padding: 5px 10px;
-        color: variables.$green-color;
-        border: 1px solid variables.$green-color;
+        color: variables.$accent-color;
+        border: 1px solid variables.$accent-color;
         border-radius: 3px;
         background-color: transparent;
         &:hover{
@@ -54,6 +54,6 @@
         margin-top: 0.625rem;
         font-size: 1.125rem;
         font-weight: 800;
-        color: variables.$red-color;
+        color: variables.$accent-color;
     }
 }

@@ -5,8 +5,8 @@
         padding: 0.5rem 0.5rem;
         margin-top: 1rem;
         background-color: transparent;
-        color: variables.$green-color;
-        border: 1px solid variables.$green-color;
+        color: variables.$accent-color;
+        border: 1px solid variables.$accent-color;
         border-radius: 3px;
         span{
             display: flex;
@@ -59,10 +59,10 @@
     &__file{
         display: flex;
         align-items: center;
-        color: variables.$blue-color;
+        color: variables.$accent-color;
         a{
             margin-left: 0.5rem;
-            color: variables.$blue-color;
+            color: variables.$accent-color;
         }
     }
     &__file:not(:last-child){

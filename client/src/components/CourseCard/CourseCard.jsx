@@ -5,7 +5,7 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const CourseCard = ({ course, fetchCourses }) => {
-    const { user } = useAuthContext()
+    const { user, token } = useAuthContext()
     const navigate = useNavigate()
     // Translating number status to text and applying appropriate style colors
     let statusText;
@@ -30,7 +30,7 @@ const CourseCard = ({ course, fetchCourses }) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user.token}`
+                'Authorization': `Bearer ${token}`
             }
         })
 

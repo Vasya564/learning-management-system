@@ -12,7 +12,7 @@ const UserCard = ({ user, handleEditUser, handleDeleteUser }) => {
         <div className="user" key={user._id}>
             <div>
                 <div className="user__photo">
-                    {user.photo && <img src={`data:${user.photo.contentType};base64,${user.photo.data}`} alt="User Photo" />}
+                    {user.photo && <img src={user.photo} alt="User Photo" />}
                 </div>
             </div>
             <div className="user__name">{user.fullname}</div>

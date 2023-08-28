@@ -1,7 +1,15 @@
+const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const checkEmptyFields =  require('../middleware/checkEmptyFields');
+          
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET 
+});
 
 const createToken = (user) => {
     const userData = {
@@ -9,7 +17,8 @@ const createToken = (user) => {
         fullname: user.fullname,
         role: user.role,
         group: user.group,
-        email: user.email
+        email: user.email,
+        photo: user.photo
     }
     return jwt.sign(userData, process.env.SECRET, {expiresIn: '3d'})
 }
@@ -57,7 +66,7 @@ const loginUser = async (req, res) => {
 // create new user
 const createUser = async (req, res) => {
     const {fullname, role, group, email, password} = req.body
-    const { buffer, mimetype } = req.file || {};
+    // const { buffer, mimetype } = req.file || {};
 
     const combinedData = {
         fullname: fullname,
@@ -72,9 +81,13 @@ const createUser = async (req, res) => {
     if(emptyFields.length > 0){
         return res.status(400).json({error: 'Всі поля повинні бути заповнені', emptyFields})
     }
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const photo = result.secure_url;
+
+    fs.unlinkSync(req.file.path);
 
     try {
-        const user = await User.createUser( fullname, role, group, email, password, buffer, mimetype)
+        const user = await User.createUser( fullname, role, group, email, password, photo)
 
         res.status(200).json({email, user})
     } catch (error) {
@@ -136,6 +149,12 @@ const deleteUser = async (req, res) => {
     }
 
     const user = await User.findOneAndDelete({_id: id})
+
+    if (user.photo) {
+        const photoUrl = user.photo;
+        const publicId = photoUrl.substring(photoUrl.lastIndexOf('/') + 1, photoUrl.lastIndexOf('.'));
+        await cloudinary.uploader.destroy(publicId);
+    }
 
     if(!user){
         return res.status(404).json({error: "No such user"})

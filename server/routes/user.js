@@ -13,8 +13,9 @@ const {
 
 const router = express.Router()
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage });
+const upload = multer({ dest: 'uploads/' });
 
 // GET all users
 router.get('/', requireAuth, getUsers)

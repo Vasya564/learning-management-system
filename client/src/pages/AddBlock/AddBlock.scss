@@ -46,8 +46,8 @@
         display: block;
         margin-top: 0.5rem;
         padding: 5px 10px;
-        color: variables.$green-color;
-        border: 1px solid variables.$green-color;
+        color: variables.$accent-color;
+        border: 1px solid variables.$accent-color;
         border-radius: 3px;
         background-color: transparent;
         &:hover{
@@ -63,18 +63,18 @@
         margin-top: 0.5rem;
         font-size: 1.125rem;
         font-weight: 800;
-        color: variables.$red-color;
+        color: variables.$accent-color;
     }
 }
 
 .oversize-error{
     font-size: 0.875rem;
-    color: variables.$red-color;
+    color: variables.$accent-color;
 }
 
 .error{
-    border: 2px solid variables.$red-color;
+    border: 2px solid variables.$accent-color;
 }
 .error-dashed{
-    border: 2px dashed variables.$red-color;
+    border: 2px dashed variables.$accent-color;
 }
